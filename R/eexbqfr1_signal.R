@@ -1,6 +1,6 @@
 #' Trade signal for German Power Futures. Front Base Quarter contract
 #'
-#' @param eexb an xts object. this is the front base quarter contract traded on EEX.
+#' @param eexbq an xts object. this is the front base quarter contract traded on EEX.
 #'   https://www.eex.com/en/market-data/power/futures/phelix-deat-futures#!/2017/09/08
 #'
 #'
@@ -19,14 +19,14 @@
 #' @importFrom magrittr "%>%"
 #'
 #' @examples
-debqfr1_model <- function (eexb,api2q){
-  source("functions.R")
-  load("~/Documents/Research/packages/EEXDE/.RData", verbose = F)
-  modelapi2q <- tecA2(api2q,"api2q")
+debqfr1_model <- function (eexbq,api2q){
+  #source("functions.R")
+
+  api2q <- tecA2(api2q,"api2q")
   eexbq <- tecA2(eexbq,"eexbq")
+
   p <- dplyr::left_join(eexbq,api2q,by="Day")
   p <- tail(p,1)
-
 
   p$R23 <- stats::predict(model23,p)
 

@@ -114,12 +114,13 @@ tecA2  <-  function (p, c_name) {
              #sh_kst(p)
   )
 
-  p <- data.frame(Day = index(p),
+  p <- data.frame(Day = zoo::index(p),
                   p,
                   row.names = NULL)
 
   p[,-c(1:3)]=lapply(p[,-c(1:3)], as.factor)
   names(p)[-1]=paste0(c_name,"_",names(p)[-1])
+
   return(p)
 }
 

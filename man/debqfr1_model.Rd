@@ -4,10 +4,10 @@
 \alias{debqfr1_model}
 \title{Trade signal for German Power Futures. Front Base Quarter contract}
 \usage{
-debqfr1_model(eexb, api2q)
+debqfr1_model(eexbq, api2q)
 }
 \arguments{
-\item{eexb}{an xts object. this is the front base quarter contract traded on EEX.
+\item{eexbq}{an xts object. this is the front base quarter contract traded on EEX.
 https://www.eex.com/en/market-data/power/futures/phelix-deat-futures#!/2017/09/08}
 
 \item{api2q}{an xts object. This is the front quarter contract traded/
