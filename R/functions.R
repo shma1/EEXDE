@@ -4,18 +4,18 @@
 # ROC ---------------------------------------------------------------------
 
 sh_roc <-  function (p) {
-  m <- TTR::ROC(p)
+  m = TTR::ROC(p)
   names(m) <- "roc"
-  m <- data.frame(Day = index( m),  m, row.names = NULL) %>%
+  m = data.frame(Day = index( m),  m, row.names = NULL) %>%
     dplyr::mutate (sig_Cl = ifelse(roc>0,1,-1),
             sig_Cl1 = lead(sig_Cl,1) )
-  m <- xts( m[,-1], order.by =  m[,1])
+  m = xts( m[,-1], order.by =  m[,1])
   return(m)
 }
 
 # RSI ---------------------------------------------------------------------
 
-sh_rsi = function (p) {
+sh_rsi <-  function (p) {
   m=TTR::RSI (p)
   m$sig_rsi=ifelse(m$EMA >= 65 | m$EMA < 30, 1, 0)
   m=m[,-1]
@@ -25,7 +25,7 @@ sh_rsi = function (p) {
 
 # MACD --------------------------------------------------------------------
 
-sh_macd = function (p) {
+sh_macd <- function (p) {
   m = TTR::MACD (p)
   m$sig_macd= ifelse ( m$macd > m$signal, 1,0 )
   m=m[,-(1:2)]
@@ -36,7 +36,7 @@ sh_macd = function (p) {
 # Aroon -------------------------------------------------------------------
 
 
-sh_aroon = function (p) {
+sh_aroon <-  function (p) {
 
   # Up (down) trends are indicated when the aroonUp(Dn) is between 70 and 100. Strong trends are
   # indicated when when the aroonUp(Dn) is above 70 while the aroonDn(Up) is below 30.
@@ -55,7 +55,7 @@ sh_aroon = function (p) {
 # TDI ---------------------------------------------------------------------
 
 
-sh_tdi = function (p) {
+sh_tdi <-  function (p) {
 
   #buy if the TDI and the direction indicator are positive, and
   #sell if the TDI is positive while the direction indicator is negative.
@@ -71,7 +71,7 @@ sh_tdi = function (p) {
 
 # TRIX --------------------------------------------------------------------
 
-sh_trix = function (p){
+sh_trix <-  function (p){
 
   # Buy/sell signals are generated when the TRIX crosses above/below the signal line
   # and is also above/below zero.
@@ -86,7 +86,7 @@ sh_trix = function (p){
 
 # KST ---------------------------------------------------------------------
 
-sh_kst = function (p){
+sh_kst <- function (p){
 
   # The KST indicates bullish/bearish momentum as it crosses above/below its moving average.
   # Because the KST tends to lead price action, look for trend confirmation in the price.
@@ -104,7 +104,7 @@ tecA2  <-  function (p, c_name) {
   names(p) <- "Close"
   # funcitns after here
 
-  p = merge (p,
+  p <-  merge (p,
              sh_roc(p),
              sh_rsi(p),
              sh_macd(p),
@@ -118,8 +118,8 @@ tecA2  <-  function (p, c_name) {
                   p,
                   row.names = NULL)
 
-  p[,-c(1:3)]=lapply(p[,-c(1:3)], as.factor)
-  names(p)[-1]=paste0(c_name,"_",names(p)[-1])
+  p[,-c(1:3)] <- lapply(p[,-c(1:3)], as.factor)
+  names(p)[-1] <- paste0(c_name,"_",names(p)[-1])
 
   return(p)
 }
